@@ -17,6 +17,7 @@ class APIFeatures {
 
     this.query = this.query.find(JSON.parse(queryStr));
 
+    // this is the entire oject -> has then access to other methods
     return this;
   }
 
