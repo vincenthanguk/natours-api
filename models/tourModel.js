@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator');
+// const validator = require('validator');
 
 // Data that is not in the schema does not get persisted
 const tourSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      // required: is a validator
+      // required is a validator
       required: [true, 'A tour must have a name'],
       unique: true,
       trim: true,
