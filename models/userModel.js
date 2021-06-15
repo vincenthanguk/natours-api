@@ -23,6 +23,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a password'],
     minlength: 8,
+    // makes password not show up
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -48,6 +50,14 @@ userSchema.pre('save', async function (next) {
   this.passwordConfirm = undefined; // passwordConfirm is not persisted to DB
   next();
 });
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  // this.password -> not available in output bc password is set to select: false
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 
