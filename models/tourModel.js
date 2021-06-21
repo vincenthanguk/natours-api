@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const User = require('./userModel');
 // const validator = require('validator');
 
 // Data that is not in the schema does not get persisted
@@ -109,6 +110,7 @@ const tourSchema = new mongoose.Schema(
         day: Number,
       },
     ],
+    guides: Array,
   },
   // OPTIONS
   {
@@ -130,6 +132,13 @@ tourSchema.virtual('durationWeeks').get(function () {
 tourSchema.pre('save', function (next) {
   // within this middleware, you have access to the document (this)
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+tourSchema.pre('save', async function (next) {
+  const guidesPromises = this.guides.map(async (id) => User.findById(id));
+
+  this.guides = await Promise.all(guidesPromises);
   next();
 });
 
