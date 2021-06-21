@@ -32,7 +32,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 exports.getTour = catchAsync(async (req, res, next) => {
   // router.route('/:id') -> this is how we get access to 'id'
-  const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findById(req.params.id).populate('reviews');
   // shorthand for: Tour.findOne({ _id: req.params.id })
 
   if (!tour) {
