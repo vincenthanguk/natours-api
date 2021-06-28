@@ -1,10 +1,25 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
+const reviewRouter = require('../routes/reviewRoutes');
 
 const router = express.Router();
 
 // router.param('id', tourController.checkID);
+// NESTED ROUTES
+// POST /tour/234fad4/reviews
+// GET /tour/234fad4/reviews
+// GET /tour/234fad4/reviews/9235das
+
+// router
+//   .route('/:tourId/reviews')
+//   .post(
+//     authController.protect,
+//     authController.restrictTo('user'),
+//     reviewController.createReview
+//   );
+
+router.use('/:tourId/reviews', reviewRouter);
 
 // alias middleware
 router
