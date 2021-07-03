@@ -125,6 +125,14 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+// index increases performance
+// single field index
+// tourSchema.index({ price: 1 });
+
+// compound index
+tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
+
 // VIRTUAL PROPERTIES
 // not persisted in database, only shows up on get data
 tourSchema.virtual('durationWeeks').get(function () {
