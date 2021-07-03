@@ -133,6 +133,7 @@ const tourSchema = new mongoose.Schema(
 // compound index
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 
 // VIRTUAL PROPERTIES
 // not persisted in database, only shows up on get data
