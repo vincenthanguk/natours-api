@@ -40,3 +40,10 @@ process.on('unhandledRejection', (err) => {
     process.exit(1); // immediately abort all requests
   });
 });
+
+process.on('SIGTERM', () => {
+  console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
+  server.close(() => {
+    console.log('💥 Process terminated!');
+  });
+});
